@@ -56,7 +56,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: WeakAuras-Companion-CI
-        path: .build\
+        path: build/
         
   build_mac:
 
