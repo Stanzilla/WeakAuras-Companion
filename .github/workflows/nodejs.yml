@@ -47,7 +47,9 @@ jobs:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: yarn dist
-      run: yarn dist
+      run: |
+        yarn dist
+        dir
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
