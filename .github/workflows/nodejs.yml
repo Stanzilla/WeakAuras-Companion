@@ -3,7 +3,7 @@ name: Node CI
 on: [push]
 
 jobs:
-  build linux:
+  build_linux:
 
     runs-on: ubuntu-latest
 
@@ -24,7 +24,7 @@ jobs:
       env:
         CI: true
         
-  build windows:
+  build_windows:
 
     runs-on: windows-latest
 
@@ -45,7 +45,7 @@ jobs:
       env:
         CI: true
         
-  build mac:
+  build_mac:
 
     runs-on: macOS-latest
 
