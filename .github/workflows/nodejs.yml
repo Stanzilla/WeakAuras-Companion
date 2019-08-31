@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Cert
-      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -22,9 +20,10 @@ jobs:
     - name: yarn install, build, and test
       run: |
         yarn
-        yarn dist
+        yarn lint
       env:
         CI: true
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         
   build_windows:
 
@@ -36,8 +35,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Cert
-      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -45,9 +42,10 @@ jobs:
     - name: yarn install, build, and test
       run: |
         yarn
-        yarn dist
+        yarn lint
       env:
         CI: true
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         
   build_mac:
 
@@ -59,26 +57,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Cert
-      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
     - name: yarn install, build, and test
       run: |
-        export CERTIFICATE_P12=$CSC_LINK;
-        echo $CERTIFICATE_OSX_P12 | base64 — decode > $CERTIFICATE_P12;
-        export KEYCHAIN=build.keychain;
-        security create-keychain -p mysecretpassword $KEYCHAIN;
-        security default-keychain -s $KEYCHAIN;
-        security unlock-keychain -p mysecretpassword $KEYCHAIN;
-        security import $CERTIFICATE_P12 -k $KEYCHAIN -P $CSC_KEY_PASSWORD -T /usr/bin/codesign;
         yarn
-        yarn dist
+        yarn lint
       env:
-        CI: true
-        CSC_LINK: ${{ secrets.CSC_LINK }}
-        CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}  
+        CI: true        
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
         
