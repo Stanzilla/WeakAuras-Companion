@@ -13,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Set up Cert
+      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -34,6 +36,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Set up Cert
+      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -55,6 +59,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Set up Cert
+      run: openssl aes-256-cbc -K $encrypted_e7df8235be93_key -iv $encrypted_e7df8235be93_iv -in msa_digicert_CI.p12.enc -out msa_digicert_CI.p12 -d;
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -74,4 +80,5 @@ jobs:
         CI: true
         CSC_LINK: ${{ secrets.CSC_LINK }}
         CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}  
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         
