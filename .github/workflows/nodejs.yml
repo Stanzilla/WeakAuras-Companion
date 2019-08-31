@@ -47,9 +47,7 @@ jobs:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
     - name: yarn dist
-      run: |
-        yarn dist
-        dir
+      run: yarn dist
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -58,7 +56,7 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: WeakAuras-Companion-CI
-        path: .build/
+        path: .build\
         
   build_mac:
 
